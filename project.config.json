@@ -2,9 +2,16 @@
   "description": "ClaudeMatch - AI驱动的Claude用户匹配平台",
   "packOptions": {
     "ignore": [
-      { "type": "regexp", "value": "\\.md$" },
-      { "type": "folder", "value": "web-source" }
-    ]
+      {
+        "value": "\\.md$",
+        "type": "regexp"
+      },
+      {
+        "value": "web-source",
+        "type": "folder"
+      }
+    ],
+    "include": []
   },
   "setting": {
     "bundle": false,
@@ -41,24 +48,39 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "condition": false
+    "condition": false,
+    "compileWorklet": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
   "libVersion": "3.3.5",
-  "appid": "wxYOUR_APPID_HERE",
+  "appid": "wx1afc4c37584d31c1",
   "projectname": "claudematch-weapp",
   "cloudfunctionTemplateRoot": "",
-  "watchOptions": { "ignore": [] },
-  "debugOptions": { "hidedInDevtools": [] },
-  "scripts": {},
-  "staticServerOptions": { "baseURL": "", "servePath": "" },
   "openDataContextFrameWork": "",
   "condition": {
-    "search": { "list": [] },
-    "conversation": { "list": [] },
-    "game": { "list": [] },
-    "plugin": { "list": [] },
-    "gamePlugin": { "list": [] },
-    "miniprogram": { "list": [] }
-  }
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": []
+    }
+  },
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
 }
