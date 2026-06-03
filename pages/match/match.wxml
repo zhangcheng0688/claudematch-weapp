@@ -1,63 +1,76 @@
-<!-- pages/match/match.wxml — AI匹配结果列表 -->
+<!-- pages/match/match.wxml (Phase 2 增强) -->
 <view class="match-page">
-  <view class="container">
-    <text class="page-title">Your Matches</text>
+  <scroll-view
+    scroll-y
+    enhanced
+    show-scrollbar="{{false}}"
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onPullDownRefresh"
+  >
+    <view class="container">
+      <text class="page-title">Your Matches</text>
 
-    <!-- 加载中 -->
-    <view class="loading-center" wx:if="{{loading}}">
-      <text class="text-body">正在加载匹配结果...</text>
-    </view>
+      <!-- 加载中 -->
+      <view class="loading-center" wx:if="{{loading && !loaded}}">
+        <text class="text-body">正在加载匹配结果...</text>
+      </view>
 
-    <!-- 错误 -->
-    <view class="empty-state" wx:elif="{{error}}">
-      <text class="empty-text">{{error}}</text>
-      <button class="btn btn-outline btn-sm mt-24" bindtap="loadMatches">重试</button>
-    </view>
+      <!-- 网络错误 -->
+      <view class="empty-state" wx:elif="{{error}}">
+        <text class="empty-icon">⚠️</text>
+        <text class="empty-text">{{error}}</text>
+        <button class="btn btn-outline btn-sm mt-24" bindtap="loadMatches">重试</button>
+      </view>
 
-    <!-- 空状态 -->
-    <view class="match-empty" wx:elif="{{empty && loaded}}">
-      <text class="match-empty-icon">🔍</text>
-      <text class="match-empty-title">还没有匹配结果</text>
-      <text class="match-empty-desc">先完善你的AI画像，我们会帮你找到最合适的人</text>
-      <button
-        class="btn btn-primary btn-md"
-        bindtap="goToProfile"
-      >
-        完善画像
-      </button>
-    </view>
+      <!-- 空状态 — 还没有匹配结果 -->
+      <view class="match-empty" wx:elif="{{loaded && matches.length === 0}}">
+        <text class="match-empty-icon">🔍</text>
+        <text class="match-empty-title">还没有匹配结果</text>
+        <text class="match-empty-desc">AI 需要了解你才能找到最合适的人</text>
+        <button class="btn btn-primary btn-md mt-24" bindtap="triggerMatch">
+          ✨ 开始 AI 匹配
+        </button>
+      </view>
 
-    <!-- 匹配列表 -->
-    <view wx:else>
-      <view
-        class="match-card"
-        wx:for="{{matches}}"
-        wx:key="id"
-        data-id="{{item.id}}"
-        bindtap="goToDetail"
-      >
-        <view class="match-header">
-          <view>
-            <text class="match-name">{{item.matched_user_name || item.display_name || '未知用户'}}</text>
-            <view class="match-tags">
-              <text class="tag tag-primary" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+      <!-- 匹配列表 -->
+      <view wx:else>
+        <!-- 刷新提示 -->
+        <view class="flex-between mb-24" wx:if="{{matches.length > 0}}">
+          <text class="text-small">{{matches.length}} 个匹配</text>
+          <text class="text-small" style="color: #818cf8;" bindtap="triggerMatch">✨ 刷新匹配</text>
+        </view>
+
+        <view
+          class="match-card"
+          wx:for="{{matches}}"
+          wx:key="id"
+          data-id="{{item.id}}"
+          bindtap="goToDetail"
+        >
+          <view class="match-header">
+            <view>
+              <text class="match-name">{{item.matched_user_name || item.display_name || '未知用户'}}</text>
+              <view class="match-tags" wx:if="{{item.tags && item.tags.length}}">
+                <text class="tag tag-primary" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+              </view>
+            </view>
+            <view class="match-score">
+              <text class="score-num">{{item.score || item.compatibility || 0}}</text>
+              <text class="score-label">%</text>
             </view>
           </view>
-          <view class="match-score">
-            <text class="score-num">{{item.score || item.compatibility || 0}}</text>
-            <text class="score-label">%</text>
+
+          <text class="match-summary">{{item.summary || item.description || 'AI 已为你分析匹配画像'}}</text>
+
+          <view class="match-footer">
+            <text class="match-time">{{item.created_at || ''}}</text>
+            <text class="match-action">查看详情 →</text>
           </view>
         </view>
-
-        <text class="match-summary">{{item.summary || item.description || '暂无简介'}}</text>
-
-        <view class="match-footer">
-          <text class="match-time">{{item.created_at || ''}}</text>
-          <text class="match-action">查看详情 →</text>
-        </view>
       </view>
-    </view>
 
-    <view class="safe-bottom" style="height: 80rpx;"></view>
-  </view>
+      <view class="safe-bottom" style="height: 100rpx;"></view>
+    </view>
+  </scroll-view>
 </view>

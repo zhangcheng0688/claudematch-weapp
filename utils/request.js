@@ -154,12 +154,90 @@ function verifyOTP(email, token) {
   })
 }
 
+/**
+ * 微信登录 - 获取 code 并发送到后端绑定
+ * 后端需要实现 /api/wx-login 接口：
+ *   POST { code, access_token }
+ *   返回 { success, user }
+ */
+function wxLogin() {
+  return new Promise((resolve, reject) => {
+    wx.login({
+      success: (loginRes) => {
+        if (!loginRes.code) {
+          reject({ code: -1, message: 'wx.login 失败' })
+          return
+        }
+
+        // 将 code 发送到后端绑定 openid
+        const token = wx.getStorageSync('sb_access_token')
+        request({
+          url: '/wx-login',
+          method: 'POST',
+          data: { code: loginRes.code },
+          auth: !!token,
+        }).then(resolve).catch((err) => {
+          // 如果后端接口尚不存在，返回 code 供开发者调试
+          reject({
+            code: err?.code || -1,
+            message: err?.message || '微信登录绑定失败',
+            wxCode: loginRes.code,
+          })
+        })
+      },
+      fail: (err) => {
+        reject({ code: -1, message: 'wx.login 调用失败', err })
+      },
+    })
+  })
+}
+
+/**
+ * 获取用户手机号（需 button open-type="getPhoneNumber"）
+ * @param {Object} e - bindgetphonenumber 事件对象
+ */
+function getPhoneNumber(e) {
+  if (!e.detail.code) {
+    return Promise.reject({ code: -1, message: '获取手机号失败' })
+  }
+
+  return request({
+    url: '/wx-phone',
+    method: 'POST',
+    data: { code: e.detail.code },
+    auth: true,
+  })
+}
+
+/**
+ * 全局 Token 过期处理：清除登录状态并跳转到登录页
+ */
+function handleAuthExpired() {
+  wx.removeStorageSync('sb_access_token')
+  wx.removeStorageSync('sb_refresh_token')
+  wx.removeStorageSync('sb_user')
+  getApp().globalData.isLoggedIn = false
+  getApp().globalData.user = null
+
+  wx.showModal({
+    title: '登录已过期',
+    content: '请重新登录',
+    showCancel: false,
+    success: () => {
+      wx.reLaunch({ url: '/pages/index/index' })
+    },
+  })
+}
+
 module.exports = {
   request,
   supabaseRequest,
   refreshToken,
   sendOTP,
   verifyOTP,
+  wxLogin,
+  getPhoneNumber,
+  handleAuthExpired,
   BASE_URL,
   SUPABASE_URL,
   ANON_KEY,

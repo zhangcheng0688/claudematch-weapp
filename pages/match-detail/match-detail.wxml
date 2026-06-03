@@ -1,67 +1,121 @@
-<!-- pages/match-detail/match-detail.wxml -->
+<!-- pages/match-detail/match-detail.wxml (Phase 2 增强) -->
 <view class="match-detail-page">
-  <view class="container">
-    <!-- 返回 -->
-    <view class="back-btn" style="padding-top: 80rpx;" bindtap="navigateBack">
-      <text class="back-arrow">←</text>
-    </view>
-
-    <!-- 加载 -->
-    <view class="loading-center" wx:if="{{loading}}">
-      <text class="text-body">加载中...</text>
-    </view>
-
-    <block wx:else>
-      <!-- 匹配度 -->
-      <view class="detail-hero">
-        <view class="detail-score-circle">
-          <text class="score-big">{{match.score || match.compatibility || '?'}}%</text>
-          <text class="score-sub">Match Score</text>
-        </view>
-      </view>
-
-      <!-- 用户画像 -->
-      <view class="detail-profile-card">
-        <text class="detail-section-title">About</text>
-        <text class="detail-text">{{match.summary || match.description || '暂无简介'}}</text>
-
-        <view class="divider" wx:if="{{match.tags && match.tags.length}}"></view>
-
-        <view class="detail-section" wx:if="{{match.tags && match.tags.length}}">
-          <text class="detail-section-title">Keywords</text>
-          <view class="detail-tags">
-            <text class="tag tag-primary" wx:for="{{match.tags}}" wx:key="*this">{{item}}</text>
-          </view>
-        </view>
-      </view>
-
-      <!-- 会面计划 -->
-      <block wx:if="{{meetPlan}}">
-        <view class="meet-plan-card">
-          <view class="meet-plan-header">
-            <text class="meet-plan-icon">📋</text>
-            <text class="meet-plan-title">AI 会面计划</text>
-          </view>
-
-          <view class="meet-topic" wx:for="{{meetPlan.topics || meetPlan}}" wx:key="index" wx:for-item="topic">
-            <text class="meet-topic-label">{{topic.title || '话题 ' + (index + 1)}}</text>
-            <text class="meet-topic-text">{{topic.content || topic}}</text>
-          </view>
-        </view>
-      </block>
-
-      <!-- 生成会面计划 -->
-      <view class="generate-section" wx:if="{{!meetPlan}}">
-        <button
-          class="generate-btn"
-          bindtap="generateMeetPlan"
-          loading="{{generating}}"
-        >
-          ✨ {{generating ? 'AI 正在生成...' : '生成会面计划'}}
-        </button>
-      </view>
-
-      <view class="safe-bottom" style="height: 80rpx;"></view>
-    </block>
+  <!-- 加载 -->
+  <view class="loading-center" wx:if="{{loading}}" style="height: 100vh;">
+    <text class="text-body">加载中...</text>
   </view>
+
+  <block wx:else>
+    <scroll-view
+      scroll-y
+      enhanced
+      show-scrollbar="{{false}}"
+      refresher-enabled="{{true}}"
+      refresher-triggered="{{false}}"
+      bindrefresherrefresh="onPullDownRefresh"
+    >
+      <view class="container">
+
+        <!-- 匹配度 -->
+        <view class="detail-hero">
+          <view class="detail-score-circle">
+            <text class="score-big">{{match.score || match.compatibility || '?'}}%</text>
+            <text class="score-sub">Match Score</text>
+          </view>
+
+          <view class="detail-profile-card">
+            <view class="detail-section">
+              <text class="detail-section-title">About Match</text>
+              <text
+                class="detail-text {{showFullProfile ? '' : 'line-clamp-3'}}"
+                style="{{!showFullProfile ? 'display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;' : ''}}"
+              >
+                {{match.summary || match.description || 'AI 正在为你分析匹配画像...'}}
+              </text>
+              <text
+                class="detail-text expand-link"
+                wx:if="{{match.summary && match.summary.length > 150}}"
+                bindtap="toggleProfile"
+                style="color: #818cf8; font-size: 26rpx; margin-top: 12rpx; display: block;"
+              >
+                {{showFullProfile ? '收起' : '展开更多'}}
+              </text>
+            </view>
+
+            <view class="divider" wx:if="{{match.tags && match.tags.length}}"></view>
+
+            <view class="detail-section" wx:if="{{match.tags && match.tags.length}}">
+              <text class="detail-section-title">Keywords</text>
+              <view class="detail-tags">
+                <text class="tag tag-primary" wx:for="{{match.tags}}" wx:key="*this">{{item}}</text>
+              </view>
+            </view>
+
+            <view class="divider" wx:if="{{match.matched_user_name}}"></view>
+
+            <view class="detail-section" wx:if="{{match.matched_user_name}}">
+              <text class="detail-section-title">Matched With</text>
+              <text class="detail-text">{{match.matched_user_name || match.display_name}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 会面计划 -->
+        <block wx:if="{{meetPlan && meetPlan.topics && meetPlan.topics.length}}">
+          <view class="meet-plan-card">
+            <view class="meet-plan-header">
+              <text class="meet-plan-icon">📋</text>
+              <text class="meet-plan-title">AI 会面计划</text>
+            </view>
+
+            <!-- 概述 -->
+            <view class="meet-topic" wx:if="{{meetPlan.summary}}">
+              <text class="meet-topic-label">概述</text>
+              <text class="meet-topic-text">{{meetPlan.summary}}</text>
+            </view>
+
+            <!-- 破冰 -->
+            <view class="meet-topic" wx:if="{{meetPlan.icebreaker}}">
+              <text class="meet-topic-label">💬 破冰话题</text>
+              <text class="meet-topic-text">{{meetPlan.icebreaker}}</text>
+            </view>
+
+            <!-- 话题列表 -->
+            <view class="meet-topic" wx:for="{{meetPlan.topics}}" wx:key="index" wx:for-item="topic">
+              <text class="meet-topic-label">{{topic.title}}</text>
+              <text class="meet-topic-text">{{topic.content}}</text>
+            </view>
+
+            <!-- 活动建议 -->
+            <view class="meet-topic" wx:if="{{meetPlan.activities && meetPlan.activities.length}}">
+              <text class="meet-topic-label">🎯 活动建议</text>
+              <text class="meet-topic-text" wx:for="{{meetPlan.activities}}" wx:key="*this">
+                • {{item}}
+              </text>
+            </view>
+          </view>
+        </block>
+
+        <!-- 生成会面计划按钮 -->
+        <view class="generate-section" wx:if="{{!meetPlan || !meetPlan.topics || !meetPlan.topics.length}}">
+          <button
+            class="generate-btn"
+            bindtap="generateMeetPlan"
+            loading="{{generating}}"
+            disabled="{{generating}}"
+          >
+            ✨ {{generating ? 'AI 正在生成...' : '生成 AI 会面计划'}}
+          </button>
+        </view>
+
+        <!-- 错误重试 -->
+        <view class="generate-section" wx:if="{{error}}">
+          <text class="text-body" style="color: #ef4444;">{{error}}</text>
+          <button class="btn btn-ghost btn-sm mt-16" bindtap="loadDetail">重试</button>
+        </view>
+
+        <view class="safe-bottom" style="height: 100rpx;"></view>
+      </view>
+    </scroll-view>
+  </block>
 </view>

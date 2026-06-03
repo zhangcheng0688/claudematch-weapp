@@ -1,4 +1,4 @@
-<!-- pages/profile/profile.wxml — 个人中心 -->
+<!-- pages/profile/profile.wxml (Phase 2 增强) -->
 <view class="profile-page">
   <view class="container">
 
@@ -25,12 +25,26 @@
       </view>
     </view>
 
+    <!-- 微信绑定 -->
+    <view class="profile-menu">
+      <view class="menu-item" bindtap="bindWechat">
+        <text class="menu-icon">💚</text>
+        <view style="flex: 1;">
+          <text class="menu-text">绑定微信</text>
+          <text class="menu-desc" wx:if="{{wxBound}}" style="font-size: 24rpx; color: #22c55e;">已绑定</text>
+          <text class="menu-desc" wx:else style="font-size: 24rpx; color: #64748b;">绑定后可接收匹配通知</text>
+        </view>
+        <text class="menu-arrow" wx:if="{{!wxBound}}">→</text>
+        <text class="menu-arrow" wx:else style="color: #22c55e;">✓</text>
+      </view>
+    </view>
+
     <!-- 退出登录 -->
     <view class="logout-section">
       <button class="logout-btn" bindtap="logout">退出登录</button>
     </view>
 
-    <text class="version-text">linQ v1.0.0</text>
+    <text class="version-text">linQ v1.1.0 · Phase 2</text>
 
     <view class="safe-bottom" style="height: 80rpx;"></view>
   </view>
