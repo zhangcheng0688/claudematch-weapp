@@ -1,0 +1,37 @@
+<!-- pages/profile/profile.wxml — 个人中心 -->
+<view class="profile-page">
+  <view class="container">
+
+    <!-- 用户信息 -->
+    <view class="profile-header">
+      <view class="avatar-circle">
+        <text>{{user.email ? user.email.charAt(0).toUpperCase() : '?'}}</text>
+      </view>
+      <text class="username">{{user.email || user.display_name || '用户'}}</text>
+    </view>
+
+    <!-- 菜单 -->
+    <view class="profile-menu">
+      <view class="menu-item" bindtap="goToStart">
+        <text class="menu-icon">📝</text>
+        <text class="menu-text">完善 AI 画像</text>
+        <text class="menu-arrow">→</text>
+      </view>
+
+      <view class="menu-item" bindtap="goToSettings">
+        <text class="menu-icon">⚙️</text>
+        <text class="menu-text">匹配偏好设置</text>
+        <text class="menu-arrow">→</text>
+      </view>
+    </view>
+
+    <!-- 退出登录 -->
+    <view class="logout-section">
+      <button class="logout-btn" bindtap="logout">退出登录</button>
+    </view>
+
+    <text class="version-text">linQ v1.0.0</text>
+
+    <view class="safe-bottom" style="height: 80rpx;"></view>
+  </view>
+</view>

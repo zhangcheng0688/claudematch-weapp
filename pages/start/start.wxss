@@ -1,0 +1,140 @@
+/* pages/start/start.wxss */
+.start-page {
+  min-height: 100vh;
+  background: #0f172a;
+}
+
+.start-content {
+  padding-top: 40rpx;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 进度条 */
+.progress-bar {
+  margin-bottom: 48rpx;
+}
+
+.progress-track {
+  height: 8rpx;
+  background: #334155;
+  border-radius: 4rpx;
+  overflow: hidden;
+  margin-bottom: 16rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  border-radius: 4rpx;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #64748b;
+}
+
+/* 步骤内容 */
+.step-content {
+  flex: 1;
+}
+
+.step-header {
+  margin-bottom: 48rpx;
+}
+
+.step-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #f8fafc;
+  margin-bottom: 16rpx;
+}
+
+.step-desc {
+  display: block;
+  font-size: 28rpx;
+  color: #94a3b8;
+}
+
+.input-group {
+  margin-bottom: 32rpx;
+  position: relative;
+}
+
+.input-label {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #f8fafc;
+  margin-bottom: 16rpx;
+}
+
+.start-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.start-textarea {
+  width: 100%;
+  height: 300rpx;
+  box-sizing: border-box;
+  padding: 24rpx 32rpx;
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  font-size: 24rpx;
+  color: #64748b;
+  margin-top: 12rpx;
+}
+
+/* 结果 */
+.result-section {
+  flex: 1;
+}
+
+.result-card {
+  background: #1e293b;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 48rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+}
+
+.result-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 24rpx;
+}
+
+.result-content {
+  font-size: 28rpx;
+  color: #94a3b8;
+  line-height: 1.8;
+}
+
+/* 底部操作 */
+.action-bar {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 32rpx 0 48rpx;
+}
+
+.skip-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 28rpx;
+  padding: 20rpx;
+}
+
+.skip-btn::after {
+  border: none;
+}

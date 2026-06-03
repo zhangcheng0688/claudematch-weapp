@@ -1,0 +1,228 @@
+/* pages/index/index.wxss */
+.index-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 背景装饰 */
+.hero-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120rpx);
+  opacity: 0.4;
+}
+
+.orb-1 {
+  width: 600rpx;
+  height: 600rpx;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  top: -100rpx;
+  right: -200rpx;
+}
+
+.orb-2 {
+  width: 500rpx;
+  height: 500rpx;
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  bottom: 200rpx;
+  left: -200rpx;
+  opacity: 0.25;
+}
+
+/* 主内容 */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 60rpx;
+}
+
+/* 品牌 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 48rpx;
+}
+
+.brand-icon {
+  font-size: 40rpx;
+  color: #6366f1;
+}
+
+.brand-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 2rpx;
+}
+
+/* 标题 */
+.hero-title {
+  margin-bottom: 24rpx;
+}
+
+.title-line {
+  display: block;
+  font-size: 56rpx;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #f8fafc;
+}
+
+.title-line.accent {
+  background: linear-gradient(135deg, #818cf8, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: 28rpx;
+  color: #94a3b8;
+  margin-bottom: 48rpx;
+  line-height: 1.6;
+}
+
+/* 统计 */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40rpx;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(20rpx);
+  border-radius: 24rpx;
+  padding: 32rpx 48rpx;
+  margin-bottom: 48rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.stat-num {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #94a3b8;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: #334155;
+}
+
+/* CTA */
+.cta-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 64rpx;
+}
+
+.cta-btn {
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 32rpx rgba(99, 102, 241, 0.3);
+}
+
+.cta-btn-secondary {
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  border: 2rpx solid #334155;
+}
+
+/* 等候名单 */
+.waitlist-section {
+  margin-bottom: 64rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 12rpx;
+}
+
+.section-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #94a3b8;
+  margin-bottom: 32rpx;
+}
+
+.waitlist-form {
+  display: flex;
+  gap: 16rpx;
+}
+
+.waitlist-input {
+  flex: 1;
+  height: 96rpx;
+}
+
+.waitlist-btn {
+  width: 180rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+/* 特性 */
+.features-section {
+  margin-bottom: 64rpx;
+}
+
+.feature-item {
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid rgba(51, 65, 85, 0.5);
+}
+
+.feature-icon {
+  font-size: 48rpx;
+  margin-bottom: 20rpx;
+}
+
+.feature-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 12rpx;
+}
+
+.feature-desc {
+  font-size: 26rpx;
+  color: #94a3b8;
+  line-height: 1.6;
+}

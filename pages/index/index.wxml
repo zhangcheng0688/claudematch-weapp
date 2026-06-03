@@ -1,0 +1,92 @@
+<!-- pages/index/index.wxml — 首页：落地页 + 等候名单 -->
+<view class="index-page">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <view class="brand flex-row gap-8">
+      <text class="brand-icon">✦</text>
+      <text class="brand-name">linQ</text>
+    </view>
+  </view>
+
+  <!-- 背景装饰 -->
+  <view class="hero-bg">
+    <view class="gradient-orb orb-1"></view>
+    <view class="gradient-orb orb-2"></view>
+  </view>
+
+  <!-- 主内容 -->
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" class="hero-content">
+    <view class="container">
+
+      <!-- 标题 -->
+      <view class="hero-title">
+        <text class="title-line">AI-driven</text>
+        <text class="title-line accent">matching for</text>
+        <text class="title-line">work, love, life</text>
+      </view>
+      <text class="hero-subtitle">商务合作、约会交友、本地伙伴 — 一个AI连接就够了</text>
+
+      <!-- 统计数据 -->
+      <view class="stats-bar">
+        <view class="stat-item">
+          <text class="stat-num">{{stats.waitlist_count || 0}}</text>
+          <text class="stat-label">等候名单</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-num">{{stats.real_signups || 0}}</text>
+          <text class="stat-label">已注册</text>
+        </view>
+      </view>
+
+      <!-- CTA -->
+      <view class="cta-section">
+        <button class="btn btn-primary btn-lg btn-block cta-btn" bindtap="goToAuth">
+          开始匹配
+        </button>
+        <button class="btn btn-outline btn-lg btn-block cta-btn-secondary" bindtap="goToMatch">
+          先看看
+        </button>
+      </view>
+
+      <!-- 等候名单 -->
+      <view class="waitlist-section" wx:if="{{!waitlistDone}}">
+        <text class="section-title">Join the waitlist</text>
+        <text class="section-desc">抢先体验，我们会通知你</text>
+        <view class="waitlist-form">
+          <input
+            class="input waitlist-input"
+            type="text"
+            placeholder="your@email.com"
+            placeholder-class="input-placeholder"
+            value="{{waitlistEmail}}"
+            bindinput="onWaitlistEmailInput"
+          />
+          <button
+            class="btn btn-primary waitlist-btn"
+            bindtap="submitWaitlist"
+            loading="{{waitlistSubmitting}}"
+            disabled="{{waitlistSubmitting}}"
+          >
+            加入
+          </button>
+        </view>
+      </view>
+
+      <!-- 功能特性 -->
+      <view class="features-section">
+        <text class="section-title">核心体验</text>
+        <text class="section-desc">行业 / 水平 / 性格的三维直觉连接</text>
+
+        <view class="feature-item" wx:for="{{features}}" wx:key="id">
+          <text class="feature-icon">{{item.icon}}</text>
+          <text class="feature-title">{{item.title}}</text>
+          <text class="feature-desc">{{item.desc}}</text>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="safe-bottom" style="height: 80rpx;"></view>
+  </scroll-view>
+</view>

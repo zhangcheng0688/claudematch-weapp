@@ -1,0 +1,66 @@
+<!-- pages/settings/settings.wxml -->
+<view class="settings-page">
+  <view class="container">
+    <text class="page-title">Settings</text>
+
+    <!-- 匹配偏好 -->
+    <view class="settings-card">
+      <text class="settings-header">Matching Preferences</text>
+
+      <view class="setting-item">
+        <view class="setting-left">
+          <text class="setting-label">💕 Dating</text>
+          <text class="setting-desc">寻找约会对象</text>
+        </view>
+        <switch
+          class="switch-wrap"
+          checked="{{dating}}"
+          color="#6366f1"
+          bindchange="onSwitchDating"
+        />
+      </view>
+
+      <view class="setting-item">
+        <view class="setting-left">
+          <text class="setting-label">💼 Business</text>
+          <text class="setting-desc">寻找商业合作</text>
+        </view>
+        <switch
+          class="switch-wrap"
+          checked="{{business}}"
+          color="#6366f1"
+          bindchange="onSwitchBusiness"
+        />
+      </view>
+
+      <view class="setting-item">
+        <view class="setting-left">
+          <text class="setting-label">🤝 Partner</text>
+          <text class="setting-desc">寻找本地伙伴</text>
+        </view>
+        <switch
+          class="switch-wrap"
+          checked="{{partner}}"
+          color="#6366f1"
+          bindchange="onSwitchPartner"
+        />
+      </view>
+    </view>
+
+    <!-- 保存 -->
+    <view class="save-section">
+      <button
+        class="btn btn-primary save-btn"
+        bindtap="saveAuthorizations"
+        loading="{{saving}}"
+      >
+        保存设置
+      </button>
+    </view>
+
+    <!-- 退出 -->
+    <view class="logout-section">
+      <button class="logout-btn" bindtap="logout">退出登录</button>
+    </view>
+  </view>
+</view>

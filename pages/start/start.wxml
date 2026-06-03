@@ -1,0 +1,122 @@
+<!-- pages/start/start.wxml — 引导填写AI资料 -->
+<view class="start-page">
+  <view class="container start-content">
+
+    <!-- 进度条 -->
+    <view class="progress-bar" wx:if="{{!generated}}">
+      <view class="progress-track">
+        <view
+          class="progress-fill"
+          style="width: {{step / totalSteps * 100}}%"
+        ></view>
+      </view>
+      <text class="progress-text">Step {{step}} / {{totalSteps}}</text>
+    </view>
+
+    <!-- 生成前：分步表单 -->
+    <block wx:if="{{!generated}}">
+      <view class="step-content">
+
+        <!-- Step 1 -->
+        <block wx:if="{{step === 1}}">
+          <view class="step-header">
+            <text class="step-title">What's new?</text>
+            <text class="step-desc">最近你在关注什么、思考什么、学会了什么？</text>
+          </view>
+          <view class="input-group">
+            <textarea
+              class="start-textarea textarea"
+              placeholder="e.g. 我最近在学 Rust，发现系统编程比想象中有趣..."
+              placeholder-class="input-placeholder"
+              value="{{update}}"
+              bindinput="onUpdateInput"
+              auto-height="{{false}}"
+              maxlength="500"
+            />
+            <text class="char-count">{{update.length}}/500</text>
+          </view>
+        </block>
+
+        <!-- Step 2 -->
+        <block wx:if="{{step === 2}}">
+          <view class="step-header">
+            <text class="step-title">What do you enjoy?</text>
+            <text class="step-desc">什么让你感到充实？什么让你忘记时间？</text>
+          </view>
+          <view class="input-group">
+            <textarea
+              class="start-textarea textarea"
+              placeholder="e.g. 深夜写代码、搭建 side project、和新朋友聊AI..."
+              placeholder-class="input-placeholder"
+              value="{{enjoyment}}"
+              bindinput="onEnjoymentInput"
+              auto-height="{{false}}"
+              maxlength="500"
+            />
+            <text class="char-count">{{enjoyment.length}}/500</text>
+          </view>
+        </block>
+
+        <!-- Step 3 -->
+        <block wx:if="{{step === 3}}">
+          <view class="step-header">
+            <text class="step-title">What are you craving?</text>
+            <text class="step-desc">你希望遇到什么样的人？</text>
+          </view>
+          <view class="input-group">
+            <textarea
+              class="start-textarea textarea"
+              placeholder="e.g. 一个能聊技术能聊人生的 partner..."
+              placeholder-class="input-placeholder"
+              value="{{craving}}"
+              bindinput="onCravingInput"
+              auto-height="{{false}}"
+              maxlength="500"
+            />
+            <text class="char-count">{{craving.length}}/500</text>
+          </view>
+        </block>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="action-bar">
+        <button
+          class="btn btn-ghost skip-btn"
+          bindtap="prevStep"
+          wx:if="{{step > 1}}"
+        >
+          上一步
+        </button>
+        <view class="flex-1"></view>
+        <button
+          class="btn btn-primary btn-md"
+          bindtap="nextStep"
+          loading="{{loading}}"
+        >
+          {{step === totalSteps ? '生成 AI 画像' : '下一步'}}
+        </button>
+      </view>
+
+      <!-- 跳过 -->
+      <view class="skip-btn-wrap" style="text-align: center; padding: 20rpx 0;" wx:if="{{step === 1}}">
+        <text class="text-body" bindtap="skip" style="color: #64748b;">跳过，稍后再填</text>
+      </view>
+    </block>
+
+    <!-- 生成后：结果展示 -->
+    <view class="result-section" wx:else>
+      <view class="step-header">
+        <text class="step-title">Your AI Profile</text>
+        <text class="step-desc">AI 已分析你的资料并生成画像</text>
+      </view>
+
+      <view class="result-card">
+        <text class="result-content">{{profileResult}}</text>
+      </view>
+
+      <button class="btn btn-primary btn-block btn-lg" bindtap="goToMatch">
+        开始匹配
+      </button>
+    </view>
+  </view>
+</view>

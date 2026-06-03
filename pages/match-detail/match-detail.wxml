@@ -1,0 +1,67 @@
+<!-- pages/match-detail/match-detail.wxml -->
+<view class="match-detail-page">
+  <view class="container">
+    <!-- 返回 -->
+    <view class="back-btn" style="padding-top: 80rpx;" bindtap="navigateBack">
+      <text class="back-arrow">←</text>
+    </view>
+
+    <!-- 加载 -->
+    <view class="loading-center" wx:if="{{loading}}">
+      <text class="text-body">加载中...</text>
+    </view>
+
+    <block wx:else>
+      <!-- 匹配度 -->
+      <view class="detail-hero">
+        <view class="detail-score-circle">
+          <text class="score-big">{{match.score || match.compatibility || '?'}}%</text>
+          <text class="score-sub">Match Score</text>
+        </view>
+      </view>
+
+      <!-- 用户画像 -->
+      <view class="detail-profile-card">
+        <text class="detail-section-title">About</text>
+        <text class="detail-text">{{match.summary || match.description || '暂无简介'}}</text>
+
+        <view class="divider" wx:if="{{match.tags && match.tags.length}}"></view>
+
+        <view class="detail-section" wx:if="{{match.tags && match.tags.length}}">
+          <text class="detail-section-title">Keywords</text>
+          <view class="detail-tags">
+            <text class="tag tag-primary" wx:for="{{match.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 会面计划 -->
+      <block wx:if="{{meetPlan}}">
+        <view class="meet-plan-card">
+          <view class="meet-plan-header">
+            <text class="meet-plan-icon">📋</text>
+            <text class="meet-plan-title">AI 会面计划</text>
+          </view>
+
+          <view class="meet-topic" wx:for="{{meetPlan.topics || meetPlan}}" wx:key="index" wx:for-item="topic">
+            <text class="meet-topic-label">{{topic.title || '话题 ' + (index + 1)}}</text>
+            <text class="meet-topic-text">{{topic.content || topic}}</text>
+          </view>
+        </view>
+      </block>
+
+      <!-- 生成会面计划 -->
+      <view class="generate-section" wx:if="{{!meetPlan}}">
+        <button
+          class="generate-btn"
+          bindtap="generateMeetPlan"
+          loading="{{generating}}"
+        >
+          ✨ {{generating ? 'AI 正在生成...' : '生成会面计划'}}
+        </button>
+      </view>
+
+      <view class="safe-bottom" style="height: 80rpx;"></view>
+    </block>
+  </view>
+</view>

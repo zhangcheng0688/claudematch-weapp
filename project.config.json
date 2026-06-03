@@ -1,0 +1,64 @@
+{
+  "description": "ClaudeMatch - AI驱动的Claude用户匹配平台",
+  "packOptions": {
+    "ignore": [
+      { "type": "regexp", "value": "\\.md$" },
+      { "type": "folder", "value": "web-source" }
+    ]
+  },
+  "setting": {
+    "bundle": false,
+    "userConfirmedBundleSwitch": false,
+    "urlCheck": false,
+    "scopeDataCheck": false,
+    "coverView": true,
+    "es6": true,
+    "postcss": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "autoAudits": false,
+    "newFeature": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "useIsolateContext": true,
+    "nodeModules": false,
+    "enhance": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showShadowRootInWxmlPanel": true,
+    "packNpmManually": false,
+    "enableEngineNative": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "ignoreAllPagePreload": false,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "condition": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.3.5",
+  "appid": "wxYOUR_APPID_HERE",
+  "projectname": "claudematch-weapp",
+  "cloudfunctionTemplateRoot": "",
+  "watchOptions": { "ignore": [] },
+  "debugOptions": { "hidedInDevtools": [] },
+  "scripts": {},
+  "staticServerOptions": { "baseURL": "", "servePath": "" },
+  "openDataContextFrameWork": "",
+  "condition": {
+    "search": { "list": [] },
+    "conversation": { "list": [] },
+    "game": { "list": [] },
+    "plugin": { "list": [] },
+    "gamePlugin": { "list": [] },
+    "miniprogram": { "list": [] }
+  }
+}

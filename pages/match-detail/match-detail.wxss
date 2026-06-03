@@ -1,0 +1,153 @@
+/* pages/match-detail/match-detail.wxss */
+.match-detail-page {
+  min-height: 100vh;
+  background: #0f172a;
+}
+
+.detail-hero {
+  position: relative;
+  padding: 60rpx 0 40rpx;
+  overflow: hidden;
+}
+
+.detail-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.08), transparent);
+}
+
+.detail-score-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32rpx;
+}
+
+.score-big {
+  font-size: 96rpx;
+  font-weight: 900;
+  background: linear-gradient(135deg, #818cf8, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.score-sub {
+  font-size: 26rpx;
+  color: #94a3b8;
+  margin-top: 8rpx;
+}
+
+.detail-profile-card {
+  background: #1e293b;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid rgba(51, 65, 85, 0.5);
+}
+
+.detail-section {
+  margin-bottom: 36rpx;
+}
+
+.detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.detail-section-title {
+  display: block;
+  font-size: 26rpx;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  margin-bottom: 16rpx;
+}
+
+.detail-text {
+  font-size: 28rpx;
+  color: #e2e8f0;
+  line-height: 1.8;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+/* 会面计划 */
+.meet-plan-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(244, 114, 182, 0.05));
+  border-radius: 24rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+}
+
+.meet-plan-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.meet-plan-icon {
+  font-size: 40rpx;
+}
+
+.meet-plan-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.meet-topic {
+  margin-bottom: 24rpx;
+  padding: 24rpx;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 16rpx;
+}
+
+.meet-topic-label {
+  display: block;
+  font-size: 24rpx;
+  color: #818cf8;
+  margin-bottom: 8rpx;
+}
+
+.meet-topic-text {
+  font-size: 28rpx;
+  color: #e2e8f0;
+  line-height: 1.7;
+}
+
+/* 生成按钮 */
+.generate-section {
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.generate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 20rpx 48rpx;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 32rpx rgba(99, 102, 241, 0.3);
+}
+
+.generate-btn::after {
+  border: none;
+}
+
+.generate-btn:active {
+  opacity: 0.85;
+}
